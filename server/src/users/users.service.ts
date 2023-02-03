@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
-  getUsers() {
+  async getUsers() {
+    // const users = await
     return [{ id: 1, name: 'Tadey' }];
   }
 }
