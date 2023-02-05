@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostsController } from './posts.controller';
-import { PostsService } from './posts.service';
+import { PostsController } from './articles.controller';
+import { PostsService } from './articles.service';
 
-describe('PostsController', () => {
+describe('ArticlesController', () => {
   let controller: PostsController;
 
   beforeEach(async () => {

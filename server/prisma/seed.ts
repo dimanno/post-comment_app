@@ -3,8 +3,8 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function seed() {
-  await prisma.post.deleteMany();
-  await prisma.post.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.article.deleteMany();
 
   const tadey = await prisma.user.create({
     data: {
@@ -32,7 +32,7 @@ async function seed() {
     },
   });
 
-  const post1 = await prisma.post.create({
+  const post1 = await prisma.article.create({
     data: {
       title: 'Cookies in NodeJS ',
       body: 'An HTTP cookie is a small piece of data stored by the users browser. Cookies were designed to be a reliable mechanism for websites to remember stateful information. When the user visits the website again, the cookie is automatically sent with the request \
@@ -49,7 +49,7 @@ With this in place, you can now read cookies from within the route handlers, as 
     },
   });
 
-  const post2 = await prisma.post.create({
+  const post2 = await prisma.article.create({
     data: {
       title: 'Modules in NodeJS ',
       body: 'A module is a class annotated with a @Module() decorator. The @Module() decorator provides metadata that Nest makes use of to organize the application structure\
@@ -62,6 +62,9 @@ exports	the subset of providers that are provided by this module and should be a
 The module encapsulates providers by default. This means that its impossible to inject providers that are neither directly part of the current module nor exported from the imported modules. Thus, you may consider the exported providers from a module as the modules public interface, or API.',
       published: true,
       authorId: marianna.id,
+      categories: {
+        create: [{ name: 'Programming' }],
+      },
     },
   });
 
@@ -69,7 +72,7 @@ The module encapsulates providers by default. This means that its impossible to 
     data: {
       message: 'I am a root comment',
       userId: tadey.id,
-      postId: post1.id,
+      articleId: post1.id,
     },
   });
 
@@ -78,7 +81,7 @@ The module encapsulates providers by default. This means that its impossible to 
       parentId: comment1.id,
       message: 'I am a nested comment',
       userId: marianna.id,
-      postId: post1.id,
+      articleId: post1.id,
     },
   });
 
@@ -86,7 +89,7 @@ The module encapsulates providers by default. This means that its impossible to 
     data: {
       message: 'I am another root comment',
       userId: tadey.id,
-      postId: post1.id,
+      articleId: post1.id,
     },
   });
   console.log(post1, post2);

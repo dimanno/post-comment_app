@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Article {
   id        String     @id @default(uuid())
   title     String
   body      String
@@ -18,7 +18,7 @@ model Post {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   author    User       @relation(fields: [authorId], references: [id])
-  category  Category[]
+  categories  Category[]
   comments  Comment[]
   authorId  String
 }
@@ -29,7 +29,7 @@ model User {
   email    String    @unique
   password String
   homePage String?
-  posts    Post[]
+  articles Article[]
   comments Comment[]
   likes    Like[]
 }
@@ -41,8 +41,8 @@ model Comment {
   updatedAt DateTime  @updatedAt
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
+  article      Article      @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId    String
   parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
   children  Comment[] @relation("ParentChild")
   parentId  String?
@@ -52,9 +52,9 @@ model Comment {
 model Category {
   id     String @id @default(uuid())
   name   String
-  post   Post   @relation(fields: [postId], references: [id])
-  postId String
+  articles    Article[] 
 }
+
 
 model Like {
   user      User    @relation(fields: [userId], references: [id])
